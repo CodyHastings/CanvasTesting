@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Codeup Duck</title>
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			canvas {
+				background-color: #22313F;
+			}
+			img {
+				display: none;
+			}
+			#canvas {
+				position: absolute;
+				z-index: -1;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<button class="btn btn-primary btn-block" id="buildBtn">Build </button>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.js"
+			integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			crossorigin="anonymous">
+		</script>
+		<script>
+		$(document).ready(function() {
+			/* To Do 
+
+			Create Correct # of Yellow blocks needed
+			Create Correct # of Orange blocks needed
+			Create Starting Position of blocks 
+			Animate Blocks to build duck
+			Add Hover effect on Animated duck
+			Make Duck do other stuff
+
+
+
+			*/
+			var canvas = document.querySelector("canvas");
+			var gravity = 0.1;
+			var friction = 0.2;
+			// var flag = true;
+			var c = canvas.getContext("2d");
+			var yellow = '#FFFB15';
+			var duck = false;
+			var sqnum = 0;
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			window.addEventListener("resize", function() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+							
+			});
+			var centW = canvas.width / 2;
+			var centH = canvas.height / 2;
+			console.log(centW + ' ' + centH);
+
+			// duckObj.x = (centW - 20);
+			// duckObj.y = (centH - 10);
+			// duckCoordinates.push(duckObj);
+
+			// let duckCoordinates = [];
+			// let duckObj = duckCoordinates.reduce(function(objectProp, element){
+			// 	objectProp[element] = element.length; 
+			// },{})
+			var duckCoordinates = [];
+			var duckObj = {};
+			function mapDuckCoordinates(){
+				for (var i = 0; i < 42; i++) {
+					if (i < 4){
+						duckObj.x = (centW - 300);
+						duckObj.y = (centH + 275);
+					} 
+					// var j = i+20;
+					// console.log(j);
+					// duckObj.x = (centW - j);
+					// console.log(duckObj);
+					// duckObj.y = (centH - 10);
+					duckCoordinates.push(duckObj);
+					duckObj = {}
+					// console.log(duckCoordinates);
+
+				}
+
+			}
+			mapDuckCoordinates();
+
+			// console.log(duckObj);
+			console.log(duckCoordinates);
+
+			function randomIntFromRange(min,max) {
+				return Math.floor(Math.random() * (max - min + 1) + min);
+			}
+
+			// function randomColor(colors) {
+			// 	return colors[Math.floor(Math.random() * colors.length)];
+			// }
+			var gw = canvas.width;
+			var gh = canvas.height;
+
+
+
+			function drawGrid(){
+
+				c.lineWidth = 1;
+    			c.strokeStyle = "#ffff";
+    			for (var x = 0; x < gw; x += 50) {
+        			for (var y = 0; y < gh; y += 50) {
+           				c.strokeRect(x, y, 150, 50); 
+        			}
+    			}
+    			c.strokeStyle = "#FFA500";
+    			c.fillRect(centW - 20, centH - 10, 50, 50); 
+    		}
+
+
+			function Box(x, dx, y, dy, bw, bh, color, type, duck, sqnum) {
+				this.x = x;
+				this.dx = dx;
+				this.y = y;
+				this.dy = dy;
+				this.bw = bw;
+				this.bh = bh;
+				this.duck = duck;
+				this.color = color;
+				this.sqnum = sqnum;
+				this.update = function() {
+					if (this.y + this.bh + this.dy > canvas.height) {
+						this.dy = -this.dy;
+						this.dy = this.dy * friction;
+						this.dx = this.dx * friction;
+					} else {
+						this.dy += gravity;
+					}
+					if (this.x + this.bw >= canvas.width || this.x - this.bw <= 0) {
+						this.dx = -this.dx * friction;
+					}
+
+					this.x += this.dx;
+					this.y += this.dy;
+					this.draw();
+				
+				};
+
+				this.draw = function() {
+					c.beginPath();
+					c.fillRect(this.x, this.y, this.bw, this.bh);
+					c.fillStyle = this.color;
+					c.stroke();
+				}
+
+				this.buildDuck = function(){
+					var j = 0; 
+					j++;
+
+					if (this.y + this.bh >= duckCoordinates[j].y){
+						// console.log(duckCoordinates[0]);
+						this.dy = 1;
+						this.y -= this.dy;
+					} 
+
+					if (this.x + this.bw >= duckCoordinates[j].x){
+						this.dx = 1;
+						this.x -= this.dx;
+					} 
+
+					//move block 1 to position 1,
+					//move block 2 to position 2 if position 1 is full. 
+					// ect. 
+
+					//build lower body
+
+					//build upper body
+
+					//build tail
+
+					//build head
+
+					//build duckbill
+
+					this.draw();
+					
+
+				}
+
+			}	
+
+			function buildDuck(){
+				duck = true;
+
+			}
+
+			var boxArrayRect = [];
+			function initYellowRect() {
+				let bw = 100;
+				let bh = 50;
+				let type = "rectangle";
+				let color = yellow;
+				let x = randomIntFromRange(0, innerWidth - bw);
+				let y = randomIntFromRange(0, innerHeight - bh);
+				let dx = randomIntFromRange(-2, 2);
+				let dy = randomIntFromRange(-2, 2);
+				duck = duck;
+
+				while(dx <= 0 && dx >= 0){
+					dx = randomIntFromRange(-2, 2);
+				}
+				while(dy <= 0 && dy >= 0){ 
+				 	dy = randomIntFromRange(-2, 2);
+				}
+
+
+				boxArrayRect.push(new Box(x, dx, y, dy, bw, bh, color, type, duck)); 
+
+			}
+			var boxArraySq = [];
+			function initYellowSquare() {
+				let bw = 50;
+				let bh = 50;
+				let type = "square";
+				let color = yellow;
+				let x = randomIntFromRange(0, innerWidth - bw);
+				let y = randomIntFromRange(0, innerHeight - bh);
+				let dx = randomIntFromRange(-2, 2);
+				let dy = randomIntFromRange(-2, 2);
+				duck = duck;
+				sqnum = sqnum;
+
+				while(dx <= 0 && dx >= 0){
+					dx = randomIntFromRange(-2, 2);
+				}
+				while(dy <= 0 && dy >= 0){ 
+				 	dy = randomIntFromRange(-2, 2);
+				}
+
+
+				boxArraySq.push(new Box(x, dx, y, dy, bw, bh, color, type, duck, sqnum)); 
+				sqnum += 1;
+				console.log(sqnum);
+
+			}
+
+			function animate() {
+				requestAnimationFrame(animate);
+				c.clearRect(0, 0, innerWidth , innerHeight);
+				if (duck === true){
+					for (var i = 0; i < boxArrayRect.length; i++) {
+						boxArrayRect[i].buildDuck();
+					}
+
+					for (var i = 0; i < boxArraySq.length; i++) {
+						boxArraySq[i].buildDuck();
+					}
+
+				} else {
+					for (var i = 0; i < boxArrayRect.length; i++) {
+						boxArrayRect[i].update();
+
+					}
+
+					for (var i = 0; i < boxArraySq.length; i++) {
+						boxArraySq[i].update();
+
+					}
+				}
+				if (boxArrayRect.length < 42){
+					for(var i = 0; i < 2; i++){
+						initYellowRect();  
+					}
+				}
+				if (boxArraySq.length < 5){
+					for(var i = 0; i < 2; i++){
+						initYellowSquare();  
+					}
+				}
+			}			
+			animate();
+			drawGrid();
+			$("#buildBtn").click(buildDuck);
+
+
+		});
+
+		</script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</body>
+</html>
