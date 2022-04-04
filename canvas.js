@@ -139,7 +139,7 @@ $(document).ready(function() {
             var dx = randomIntFromRange(-3, 3)
             var dy = randomIntFromRange(-2, 2)
             ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colors)));
-        };
+        }
     }
     // var particleArray = []
     // function initParticle(){
@@ -157,7 +157,7 @@ $(document).ready(function() {
         c.fillStyle = 'rgba(0, 0, 0, 0.05)'
         c.fillRect(0, 0, canvas.width, canvas.height)
         if (flag == false){
-            for (var i = 0; i < ballArray.length; i++) {
+            for (let i = 0; i < ballArray.length; i++) {
                 ballArray[i].vacume();
                 if (kill == true) {
                     ballArray.splice(i, 1);
@@ -165,7 +165,7 @@ $(document).ready(function() {
                 }
             }
         } else {
-            for (var i = 0; i < ballArray.length; i++) {
+            for (let i = 0; i < ballArray.length; i++) {
                 ballArray[i].update();
             }
         }
@@ -176,6 +176,9 @@ $(document).ready(function() {
         //     particleArray[i].update();
         // }
 
+    }
+    function vacume(){
+        flag = false;
     }
     // initParticle();
     animate();
