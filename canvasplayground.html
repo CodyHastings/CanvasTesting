@@ -17,6 +17,7 @@
 	<body>
 		
 		<canvas></canvas>
+
 		<script
 			src="https://code.jquery.com/jquery-3.2.1.js"
 			integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -138,7 +139,7 @@
 			function animate() {
 
 				requestAnimationFrame(animate);
-				// c.clearRect(0, 0, innerWidth , innerHeight);
+				c.clearRect(0, 0, innerWidth , innerHeight);
 
 				for (var i = 0; i < circleArray.length; i++) {
 					circleArray[i].update();
