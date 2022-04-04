@@ -90,7 +90,7 @@ $(document).ready(function() {
             this.y += this.dy;
             this.draw();
         };
-        this.vacume = function(){
+        this.vacuum = function(){
             if(this.x + this.radius === canvas.width/2 && this.y >= 0){
                 this.y-= 25;
             }
@@ -114,7 +114,7 @@ $(document).ready(function() {
             c.closePath();
         };
     }
-    var ballArray = [];
+    let ballArray = [];
     function init() {
         var radius = randomIntFromRange(8, 20);
         var x = randomIntFromRange(radius, canvas.width - radius);
@@ -156,10 +156,10 @@ $(document).ready(function() {
         requestAnimationFrame(animate);
         c.fillStyle = 'rgba(0, 0, 0, 0.05)'
         c.fillRect(0, 0, canvas.width, canvas.height)
-        if (flag == false){
+        if (flag === false){
             for (let i = 0; i < ballArray.length; i++) {
-                ballArray[i].vacume();
-                if (kill == true) {
+                ballArray[i].vacuum();
+                if (kill === true) {
                     ballArray.splice(i, 1);
                     kill = false;
                 }
@@ -177,7 +177,7 @@ $(document).ready(function() {
         // }
 
     }
-    function vacume(){
+    function vacuum(){
         flag = false;
     }
     // initParticle();
@@ -185,7 +185,7 @@ $(document).ready(function() {
     $("#addBall").click(init);
     $("#bigBall").click(initBigBall);
     $("#200Balls").click(init300Balls);
-    $("#vacumeBalls").click(vacume);
+    $("#vacuumBalls").click(vacuum);
 
 
 });
