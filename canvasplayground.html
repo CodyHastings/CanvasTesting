@@ -25,43 +25,60 @@
 		<script>
 		$(document).ready(function() {
 
+			//Global variable to store the canvas element in a variable
 			var canvas = document.querySelector("canvas");
+
+			//Global variable to store the amount of gravity to be applied to a circle
 			var gravity = 0.1;
+
+			//Global variable to store the amount of friction to be applied to a circle
 			var friction = 0.2;
+
+			//store the get context method of the canvas objectect into a variable named c. (this is just for code readability)
 			var c = canvas.getContext("2d");
+
+			//should the circle be removed from the array?
 			var remove = false;
+
+			//array to store various colors of each circle
 			var colors = [
 			'#779c48',
 			'#90c151',
 			'#8bef98',
 			'#bde589'
 			];
+
+			//set the canvas to be the width and height of the current display
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
+
+			//update canvas width and height if the display is resized in any way
 			window.addEventListener("resize", function() {
 				canvas.width = window.innerWidth;
 				canvas.height = window.innerHeight;
 							
 			});
 
+			//return a random int between 2 pass numbers
 			function randomIntFromRange(min,max) {
 				return Math.floor(Math.random() * (max - min + 1) + min);
 			}
 
+			//select a random color from the color array
 			function randomColor(colors) {
 				return colors[Math.floor(Math.random() * colors.length)];
 			}
+
 			//Constructor
-			function Circle(x, y, dx, dy, radius, color, out, counter, flag) {
+			//var x and y are position coordinates
+			//var dx and dy determine the velocity of the x or y coordinate
+			function Circle(x, y, dx, dy, radius, color) {
 				this.x = x;
 				this.y = y;
 				this.dx = dx;
 				this.dy = dy;
 				this.radius = radius;
 				this.color = color;
-				this.out = out;
-				this.counter = counter;
-				this.flag = flag;
 				//This Method determines a new position for the circle.
 				this.update = function() {
 					if (this.y + this.radius + this.dy > canvas.height) {
@@ -113,7 +130,7 @@
 				while(dy <= 0 && dy >= 0){ 
 				 	dy = randomIntFromRange(-2, 2);
 				}
-				circleArray.push(new Circle(x, y, dx, dy, radius, randomColor(colors), remove));
+				circleArray.push(new Circle(x, y, dx, dy, radius, randomColor(colors)));
 
 			}
 			//Function to request an animation frame and to lear the canvas
