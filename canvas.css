@@ -117,3 +117,8 @@
 /*  margin: 0 6px;*/
 /*  font-size: 14px;*/
 /*}*/
+
+#buttonWrap{
+    position: fixed;
+    top: 0;
+}
