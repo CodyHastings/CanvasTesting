@@ -34,13 +34,13 @@
 			//Global variable to store the amount of friction to be applied to a circle
 			var friction = 0.2;
 
-			//store the get context method of the canvas objectect into a variable named c. (this is just for code readability)
+			//store the get context method of the canvas object into a variable named c. (this is just for code readability)
 			var c = canvas.getContext("2d");
 
 			//should the circle be removed from the array?
 			var remove = false;
 
-			//array to store various colors of each circle
+			//Global array to store various colors of each circle
 			var colors = [
 			'#779c48',
 			'#90c151',
@@ -79,6 +79,7 @@
 				this.dy = dy;
 				this.radius = radius;
 				this.color = color;
+
 				//This Method determines a new position for the circle.
 				this.update = function() {
 					if (this.y + this.radius + this.dy > canvas.height) {
@@ -113,7 +114,8 @@
 				}
 			}
 
-			//Init Function, this gives each circle it's starting value
+			//init function, short for Initialize. This function will give each Circle
+			//their starting values as well as pushing those circles into the Circle constructor
 			var circleArray = [];
 			function init() {
 				var radius = randomIntFromRange(5, 25);
@@ -121,9 +123,6 @@
 				var y = randomIntFromRange(0 , innerHeight);
 				var dx = randomIntFromRange(-2, 2);
 				var dy = randomIntFromRange(-2, 2);
-				var counter = 0;
-				var flag = 0;
-				var out = false;
 				while(dx <= 0 && dx >= 0){
 					dx = randomIntFromRange(-2, 2);
 				}
@@ -133,11 +132,13 @@
 				circleArray.push(new Circle(x, y, dx, dy, radius, randomColor(colors)));
 
 			}
-			//Function to request an animation frame and to lear the canvas
+			//Function to request an animation frame and to clear the canvas each time through the animation loop
+			// /This is our main animation Loop that is an infinite loop calling itself
+			//The infinite loop is safe because of the requestAnimationFrame function
 			function animate() {
 
 				requestAnimationFrame(animate);
-				c.clearRect(0, 0, innerWidth , innerHeight);
+				// c.clearRect(0, 0, innerWidth , innerHeight);
 
 				for (var i = 0; i < circleArray.length; i++) {
 					circleArray[i].update();
