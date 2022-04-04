@@ -52,7 +52,7 @@
 				return colors[Math.floor(Math.random() * colors.length)];
 			}
 			//Constructor
-			function Ball(x, y, dx, dy, radius, color, out, counter, flag) {
+			function Circle(x, y, dx, dy, radius, color, out, counter, flag) {
 				this.x = x;
 				this.y = y;
 				this.dx = dx;
@@ -62,7 +62,7 @@
 				this.out = out;
 				this.counter = counter;
 				this.flag = flag;
-				//This Method determines a new position for the ball.
+				//This Method determines a new position for the circle.
 				this.update = function() {
 					if (this.y + this.radius + this.dy > canvas.height) {
 						this.dy = -this.dy;
@@ -81,7 +81,7 @@
 					this.draw();
 				};
 
-				//This Method draws the ball on the canvas
+				//This Method draws the circle on the canvas
 				this.draw = function() {
 					c.beginPath();
 					c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);  
@@ -96,8 +96,8 @@
 				}
 			}
 
-			//Init Function, this gives each ball it's starting value
-			var ballArray = [];
+			//Init Function, this gives each circle it's starting value
+			var circleArray = [];
 			function init() {
 				var radius = randomIntFromRange(5, 25);
 				var x = randomIntFromRange(0, innerWidth);
@@ -113,7 +113,7 @@
 				while(dy <= 0 && dy >= 0){ 
 				 	dy = randomIntFromRange(-2, 2);
 				}
-				ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colors), out, counter, flag, remove));
+				circleArray.push(new Circle(x, y, dx, dy, radius, randomColor(colors), remove));
 
 			}
 			//Function to request an animation frame and to lear the canvas
@@ -122,14 +122,14 @@
 				requestAnimationFrame(animate);
 				c.clearRect(0, 0, innerWidth , innerHeight);
 
-				for (var i = 0; i < ballArray.length; i++) {
-					ballArray[i].update();
+				for (var i = 0; i < circleArray.length; i++) {
+					circleArray[i].update();
 					if (remove) {
-						ballArray.splice(i, 1);
+						circleArray.splice(i, 1);
 						remove = false;
 					}
 				}
-					if (ballArray.length < 15){
+					if (circleArray.length < 15){
 						for(var i = 0; i < 2; i++){
 							init();  
 						}
