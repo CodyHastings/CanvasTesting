@@ -41,17 +41,17 @@ $(document).ready(function() {
         this.radians = Math.random() * Math.PI * 2;
         this.velocity = 0.05;
         this.distanceFromCenter = { x: randomIntFromRange(20, 70), y: randomIntFromRange(20,100)}
-        this.update = function() {
+        this.updateP = function() {
             var lastPoint = {x: this.x, y: this.y};
             this.radians += this.velocity
             this.x = mouse.x + Math.cos(this.radians) * this.distanceFromCenter.x;
             this.y = mouse.y + Math.sin(this.radians) * this.distanceFromCenter.y;
 
 
-            this.draw(lastPoint);
+            this.drawP(lastPoint);
         }
 
-        this.draw = function(lastPoint) {
+        this.drawP = function(lastPoint) {
             c.beginPath();
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
             c.fillStyle = this.color;
@@ -147,7 +147,7 @@ $(document).ready(function() {
     var particleArray = []
     function initParticle(){
         // console.log(particleArray)
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             let x = canvas.width /2 + randomIntFromRange(-5, 5);
             let y = canvas.height /2 + randomIntFromRange(-5, 5);
             let radius = randomIntFromRange(5, 10)
@@ -177,8 +177,8 @@ $(document).ready(function() {
         if (ballArray.length === 0) {
             flag = true;
         }
-        for (let i = 0; i < particleArray.length; i++) {
-            particleArray[i].update();
+        for (let j = 0; j < particleArray.length; j++) {
+            particleArray[j].updateP();
         }
 
     }
