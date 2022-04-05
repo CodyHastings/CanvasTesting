@@ -60,7 +60,7 @@ $(document).ready(function() {
             c.beginPath();
             c.strokeStyle = this.color;
             c.lineWidth = this.radius * 2;
-            // c.moveTo(lastPoint.x, lastPoint.y)
+            c.moveTo(lastPoint.x, lastPoint.y)
             c.lineTo(this.x, this.y)
             c.stroke();
             c.closePath();
@@ -148,10 +148,11 @@ $(document).ready(function() {
     function initParticle(){
         // console.log(particleArray)
         for (var i = 0; i < 4; i++) {
-            x = canvas.width /2 + randomIntFromRange(-5, 5);
-            y = canvas.height /2 + randomIntFromRange(-5, 5);
-            radius = randomIntFromRange(5, 10)
-            particleArray.push(new Particle(x, y, radius, randomColor(colors)));
+            let x = canvas.width /2 + randomIntFromRange(-5, 5);
+            let y = canvas.height /2 + randomIntFromRange(-5, 5);
+            let radius = randomIntFromRange(5, 10)
+            let color = randomColor(colors)
+            particleArray.push(new Particle(x, y, radius, color));
 
         }
     }
@@ -176,9 +177,9 @@ $(document).ready(function() {
         if (ballArray.length === 0) {
             flag = true;
         }
-        // for (var i = 0; i < particleArray.length; i++) {
-        //     particleArray[i].update();
-        // }
+        for (let i = 0; i < particleArray.length; i++) {
+            particleArray[i].update();
+        }
 
     }
     function vacuum(){
