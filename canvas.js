@@ -192,5 +192,17 @@ $(document).ready(function() {
     $("#200Balls").click(init300Balls);
     $("#vacuumBalls").click(vacuum);
 
-
 });
+
+// function subtract(input1, input2){
+//
+//     if(typeof input1 === "string" || typeof input2 === "string"){
+//         var result = input1 - input2
+//         console.log("we got strings boys" + result);
+//         if(parseInt(result) == NaN){
+//             console.log(result)
+//             return false;
+//         }  else {
+//             return input1 - input2;
+//         }
+//     }
