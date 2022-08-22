@@ -75,6 +75,7 @@ $(document).ready(function() {
         this.dy = dy;
         this.radius = radius;
         this.color = color;
+        // console.log(this.color);
         this.update = function() {
             if (this.y + this.radius + this.dy > canvas.height) {
                 this.dy = -this.dy;
@@ -131,6 +132,7 @@ $(document).ready(function() {
         let dx = randomIntFromRange(-3, 3)
         let dy = randomIntFromRange(-2, 2)
         let color = randomColor(colors)
+        // console.log(color);
         ballArray.push(new Ball(x, y, dx, dy, radius, color));
     }
     function init300Balls(){
@@ -194,15 +196,3 @@ $(document).ready(function() {
 
 });
 
-// function subtract(input1, input2){
-//
-//     if(typeof input1 === "string" || typeof input2 === "string"){
-//         var result = input1 - input2
-//         console.log("we got strings boys" + result);
-//         if(parseInt(result) == NaN){
-//             console.log(result)
-//             return false;
-//         }  else {
-//             return input1 - input2;
-//         }
-//     }
